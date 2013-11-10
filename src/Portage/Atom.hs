@@ -1,4 +1,4 @@
-module Atom where
+module Portage.Atom where
 
 -- | The category of a package, for example @dev-lang@
 type Category = String
