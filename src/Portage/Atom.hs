@@ -1,5 +1,7 @@
 module Portage.Atom where
 
+import Prelude hiding (EQ, GT, LT)
+
 -- | The category of a package, for example @dev-lang@
 type Category = String
 
@@ -7,7 +9,14 @@ type Category = String
 type Package = String
 
 -- | The compare pattern in a version, for example @>=@
-data Compare = LT | LE | EQ | GE | GT deriving (Show, Eq, Ord)
+data Compare = LT | LE | EQ | GE | GT deriving (Eq, Ord)
+
+instance Show Compare where
+  show LT = "<"
+  show LE = "<="
+  show EQ = "="
+  show GE = ">="
+  show GT = ">"
 
 -- | The version string, which contains the compare pattern and the version
 -- itself, for example @>=7.4.2@
