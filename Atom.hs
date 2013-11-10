@@ -34,3 +34,34 @@ class Atom' a where
 
 -- | The real atom type
 newtype Atom a = Atom a
+
+instance Atom' a => Show (Atom a) where
+  show (Atom a) = cmp ++ cat ++ "/" ++ pkg ++ ver ++ slt ++ repo
+    where cat = category a
+          pkg = package a
+          cmp = case version a of
+            Just (Version c _) -> show c
+            Nothing -> ""
+          ver = case version a of
+            Just (Version _ v) -> '-' : v
+            Nothing -> ""
+          slt = case slot a of
+            Just s -> "::" ++ s
+            Nothing -> ""
+          repo = case repository a of
+            Just r -> "::" ++ r
+            Nothing -> ""
+
+instance Atom' a => Eq (Atom a) where
+  (Atom x) == (Atom y) = (category x == category y) &&
+                         (package x == package y) &&
+                         (version x == version y) &&
+                         (slot x == slot y) &&
+                         (repository x == repository y)
+
+instance Atom' a => Ord (Atom a) where
+  (Atom x) <= (Atom y) = (category x <= category y) &&
+                         (package x <= package y) &&
+                         (version x <= version y) &&
+                         (slot x <= slot y) &&
+                         (repository x <= repository y)
