@@ -20,7 +20,10 @@ instance Show Compare where
 
 -- | The version string, which contains the compare pattern and the version
 -- itself, for example @>=7.4.2@
-data Version = Version Compare String deriving (Show, Eq, Ord)
+data Version = Version Compare String deriving (Eq, Ord)
+
+instance Show Version where
+  show (Version cmp ver) = show cmp ++ ver
 
 -- | The slot of a package, for example @0\/7.6.3@
 type Slot = String
