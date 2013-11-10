@@ -20,7 +20,7 @@ type Slot = String
 type Repository = String
 
 -- | The typeclass that captures an atom
-class Atom a where
+class Atom' a where
   -- | The category is always present in an atom
   category :: a -> Category
   -- | The package name is always present in an atom
@@ -31,3 +31,6 @@ class Atom a where
   slot :: a -> Maybe Slot
   -- | The repository maybe present in an atom
   repository :: a -> Maybe Repository
+
+-- | The real atom type
+newtype Atom a = Atom a
